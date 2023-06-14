@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        <style>
+    body {
+      background: linear-gradient(to bottom, #ffebb9, #ff8a5c);
+      font-family: Arial, sans-serif;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      max-width: 400px;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff8a5c;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      width: 100%;
+      padding: 8px;
+      background-color: #ff8a5c;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #ff6347;
+    }
+
+    h2 {
+      margin-top: 20px;
+      color: #ff8a5c;
+    }
+
+    #divisaoConta, #valorTotalConta {
+      padding: 10px;
+      background-color: #ffe7d8;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        max-width: 100%;
+      }
+
+      input, button {
+        width: auto;
+      }
+    }
+      </style>
+  <title>Divisão da Conta</title>
+  <script>
+    // Variáveis para armazenar os dados dos clientes
+    var clientes = [];
+
+    // Função para adicionar um novo cliente
+    function adicionarCliente() {
+      var nome = document.getElementById("nome").value;
+      var pedido = document.getElementById("pedido").value;
+      var valorGasto = parseFloat(document.getElementById("valorGasto").value);
+
+      // Cria um objeto cliente com os dados fornecidos
+      var cliente = {
+        nome: nome,
+        pedido: pedido,
+        valorGasto: valorGasto
+      };
+
+      // Adiciona o cliente ao array de clientes
+      clientes.push(cliente);
+
+      // Exibe os dados do cliente
+      console.log("Novo cliente adicionado:");
+      console.log("Nome: " + nome);
+      console.log("Pedido: " + pedido);
+      console.log("Valor gasto: " + valorGasto);
+
+      // Limpa os campos de entrada
+      document.getElementById("nome").value = "";
+      document.getElementById("pedido").value = "";
+      document.getElementById("valorGasto").value = "";
+    }
+
+    // Função para calcular a divisão da conta individualmente
+    function calcularDivisaoConta() {
+      var valorTotal = 0;
+      var numClientes = clientes.length;
+
+      // Calcula o valor total da conta
+      for (var i = 0; i < numClientes; i++) {
+        valorTotal += clientes[i].valorGasto;
+      }
+
+      // Calcula o valor a ser pago por cada cliente
+      var valorPorCliente = valorTotal / numClientes;
+
+      // Exibe a divisão da conta para cada cliente
+      var divisaoConta = document.getElementById("divisaoConta");
+      divisaoConta.innerHTML = ""; // Limpa o conteúdo anterior
+
+      for (var i = 0; i < numClientes; i++) {
+        var cliente = clientes[i];
+        var mensagem = "Nome: " + cliente.nome + ", Valor a ser pago: " + valorPorCliente.toFixed(2);
+        var paragrafo = document.createElement("p");
+        paragrafo.innerHTML = mensagem;
+        divisaoConta.appendChild(paragrafo);
+      }
+
+      // Exibe o valor total da conta
+      var valorTotalConta = document.getElementById("valorTotalConta");
+      valorTotalConta.innerHTML = "Valor total da conta: " + valorTotal.toFixed(2);
+    }
+  </script>
+</head>
+<body>
+  <h1>Divisão da Conta</h1>
+
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome"><br>
+
+  <label for="pedido">Pedido:</label>
+  <input type="text" id="pedido"><br>
+
+  <label for="valorGasto">Valor Gasto:</label>
+  <input type="text" id="valorGasto"><br>
+
+  <button onclick="adicionarCliente()">Adicionar Cliente</button>
+  <button onclick="calcularDivisaoConta()">Calcular Divisão da Conta</button>
+
+  <h2>Divisão da Conta por Cliente:</h2>
+  <div id="divisaoConta"></div>
+
+  <h2>Valor Total da Conta:</h2>
+  <div id="valorTotalConta"></div>
+</body
