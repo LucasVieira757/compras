@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        <style>
+  <title>Divisão da Conta</title>
+  <style>
     body {
       background: linear-gradient(to bottom, #ffebb9, #ff8a5c);
       font-family: Arial, sans-serif;
@@ -11,6 +11,8 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .container {
@@ -67,6 +69,10 @@
       margin-bottom: 20px;
     }
 
+    .cliente-info {
+      margin-bottom: 10px;
+    }
+
     @media (max-width: 500px) {
       .container {
         max-width: 100%;
@@ -76,8 +82,7 @@
         width: auto;
       }
     }
-      </style>
-  <title>Divisão da Conta</title>
+  </style>
   <script>
     // Variáveis para armazenar os dados dos clientes
     var clientes = [];
@@ -112,53 +117,56 @@
 
     // Função para calcular a divisão da conta individualmente
     function calcularDivisaoConta() {
-      var valorTotal = 0;
-      var numClientes = clientes.length;
-
       // Calcula o valor total da conta
-      for (var i = 0; i < numClientes; i++) {
+      var valorTotal = 0;
+      for (var i = 0; i < clientes.length; i++) {
         valorTotal += clientes[i].valorGasto;
       }
 
-      // Calcula o valor a ser pago por cada cliente
-      var valorPorCliente = valorTotal / numClientes;
-
-      // Exibe a divisão da conta para cada cliente
+      // Exibe a divisão da conta por cliente
       var divisaoConta = document.getElementById("divisaoConta");
       divisaoConta.innerHTML = ""; // Limpa o conteúdo anterior
 
-      for (var i = 0; i < numClientes; i++) {
+      for (var i = 0; i < clientes.length; i++) {
         var cliente = clientes[i];
-        var mensagem = "Nome: " + cliente.nome + ", Valor a ser pago: " + valorPorCliente.toFixed(2);
-        var paragrafo = document.createElement("p");
-        paragrafo.innerHTML = mensagem;
-        divisaoConta.appendChild(paragrafo);
+        var valorPagar = cliente.valorGasto.toFixed(2);
+
+        // Cria um elemento para exibir as informações do cliente
+        var clienteInfo = document.createElement("div");
+        clienteInfo.className = "cliente-info";
+        clienteInfo.textContent = cliente.nome + " - Valor a pagar: R$ " + valorPagar;
+
+        // Adiciona o elemento ao contêiner
+        divisaoConta.appendChild(clienteInfo);
       }
 
       // Exibe o valor total da conta
       var valorTotalConta = document.getElementById("valorTotalConta");
-      valorTotalConta.innerHTML = "Valor total da conta: " + valorTotal.toFixed(2);
+      valorTotalConta.textContent = "Valor total da conta: R$ " + valorTotal.toFixed(2);
     }
   </script>
 </head>
 <body>
-  <h1>Divisão da Conta</h1>
+  <div class="container">
+    <h1>Divisão da Conta</h1>
 
-  <label for="nome">Nome:</label>
-  <input type="text" id="nome"><br>
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome">
 
-  <label for="pedido">Pedido:</label>
-  <input type="text" id="pedido"><br>
+    <label for="pedido">Pedido:</label>
+    <input type="text" id="pedido">
 
-  <label for="valorGasto">Valor Gasto:</label>
-  <input type="text" id="valorGasto"><br>
+    <label for="valorGasto">Valor Gasto:</label>
+    <input type="text" id="valorGasto">
 
-  <button onclick="adicionarCliente()">Adicionar Cliente</button>
-  <button onclick="calcularDivisaoConta()">Calcular Divisão da Conta</button>
+    <button onclick="adicionarCliente()">Adicionar Cliente</button>
+    <button onclick="calcularDivisaoConta()">Calcular Divisão da Conta</button>
 
-  <h2>Divisão da Conta por Cliente:</h2>
-  <div id="divisaoConta"></div>
+    <h2>Divisão da Conta por Cliente:</h2>
+    <div id="divisaoConta"></div>
 
-  <h2>Valor Total da Conta:</h2>
-  <div id="valorTotalConta"></div>
-</body
+    <h2>Valor Total da Conta:</h2>
+    <div id="valorTotalConta"></div>
+  </div>
+</body>
+</html>
